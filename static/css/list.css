@@ -79,3 +79,7 @@
     font-weight: bold;
     background-color: #FFFF96;
 }
+.mybox > li > button {
+    border: none;
+    background-color: transparent;
+}

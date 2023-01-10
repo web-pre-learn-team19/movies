@@ -24,11 +24,10 @@ def checklist():
 def list_post():
     movie_receive = request.form['movie_give']
 
-    watch_list = list(db.movieList.find({}, {'_id': False}))
-    count = len(watch_list) + 1
+    idnum = db.movieList.find_one(sort=[("num", -1)])["num"] + 1
 
     doc = {
-        'num': count,
+        'num': idnum,
         'movie': movie_receive,
         'done': 0
     }
@@ -48,6 +47,13 @@ def list_cancel():
     num_receive = request.form['num_give']
     db.movieList.update_one({'num': int(num_receive)}, {'$set': {'done': 0}})
     return jsonify({'msg': '체크 해제 완료!'})
+
+@app.route("/watchlist/delete", methods=["POST"])
+def list_delete():
+    num_receive = request.form['num_give']
+    db.movieList.delete_one({'num': int(num_receive)})
+    return jsonify({'msg': '삭제 완료!'})
+
 
 @app.route("/watchlist", methods=["GET"])
 def list_get():
