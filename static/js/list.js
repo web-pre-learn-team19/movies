@@ -3,6 +3,7 @@ $(document).ready(function () {
 });
 
 function show_all_list(){
+    $('#movie-list').empty()
     $.ajax({
         type: "GET",
         url: "/watchlist",
@@ -20,6 +21,54 @@ function show_all_list(){
                                     <h2><input type="checkbox" onclick="done_list(${num})"/> ${movie}</h2>
                                 </li>`
                 } else {
+                    temp_html = `<li>
+                                    <h2 class="done"><input type="checkbox" onclick="cancel_list(${num})" checked/> ${movie}</h2>
+                                </li>`
+                }
+                $('#movie-list').append(temp_html)
+            }
+        }
+    });
+}
+function show_unchecked_list(){
+    $('#movie-list').empty()
+    $.ajax({
+        type: "GET",
+        url: "/watchlist",
+        data: {},
+        success: function (response) {
+            let rows = response['watchLists']
+            for (let i = 0; i < rows.length; i++) {
+                let movie = rows[i]['movie']
+                let done = rows[i]['done']
+                let num = rows[i]['num']
+
+                let temp_html = ``
+                if (done == 0) {
+                    temp_html = `<li>
+                                    <h2><input type="checkbox" onclick="done_list(${num})"/> ${movie}</h2>
+                                </li>`
+                }
+                $('#movie-list').append(temp_html)
+            }
+        }
+    });
+}
+function show_checked_list(){
+    $('#movie-list').empty()
+    $.ajax({
+        type: "GET",
+        url: "/watchlist",
+        data: {},
+        success: function (response) {
+            let rows = response['watchLists']
+            for (let i = 0; i < rows.length; i++) {
+                let movie = rows[i]['movie']
+                let done = rows[i]['done']
+                let num = rows[i]['num']
+
+                let temp_html = ``
+                if (done == 1) {
                     temp_html = `<li>
                                     <h2 class="done"><input type="checkbox" onclick="cancel_list(${num})" checked/> ${movie}</h2>
                                 </li>`
