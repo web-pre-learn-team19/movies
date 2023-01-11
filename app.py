@@ -15,7 +15,7 @@ def home():
 def review():
     return render_template('review.html')
 
-@app.route("/savereview", methods=["POST"])
+@app.route("/reviews", methods=["POST"])
 def review_post():
     title_receive = request.form['title_give']
     star_receive = request.form['star_give']
@@ -37,6 +37,10 @@ def review_post():
 
     return jsonify({'msg': '등록 완료!'})
 
+@app.route("/reviews", methods=["GET"])
+def review_get():
+    review_list = list(db.reviews.find({}, {'_id': False}))
+    return jsonify({'reviewList': review_list})
 
 # 체크리스트
 @app.route('/list')
@@ -76,7 +80,6 @@ def list_delete():
     num_receive = request.form['num_give']
     db.movieList.delete_one({'num': int(num_receive)})
     return jsonify({'msg': '삭제 완료!'})
-
 
 @app.route("/watchlist", methods=["GET"])
 def list_get():
