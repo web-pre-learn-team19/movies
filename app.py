@@ -15,6 +15,29 @@ def home():
 def review():
     return render_template('review.html')
 
+@app.route("/savereview", methods=["POST"])
+def review_post():
+    title_receive = request.form['title_give']
+    star_receive = request.form['star_give']
+    comment_receive = request.form['comment_give']
+
+    if len(list(db.reviews.find({}, {'_id': False}))) == 0:
+        idnum = 1
+    else:
+        idnum = db.reviews.find_one(sort=[("num", -1)])["num"] + 1
+
+    doc = {
+        'num': idnum,
+        'title': title_receive,
+        'star': star_receive,
+        'comment': comment_receive
+    }
+
+    db.reviews.insert_one(doc)
+
+    return jsonify({'msg': '등록 완료!'})
+
+
 # 체크리스트
 @app.route('/list')
 def checklist():
