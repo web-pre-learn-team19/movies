@@ -1,56 +1,47 @@
-$(document).ready(function () {
-    show_list();
-});
 
-function show_list(){
-    $.ajax({
-        type: "GET",
-        url: "/bucket",
-        data: {},
-        success: function (response) {
-            let rows = response['buckets']
-            for (let i = 0; i < rows.length; i++) {
-                let bucket = rows[i]['bucket']
-                let done = rows[i]['done']
-                let num = rows[i]['num']
+        $(document).ready(function () {
+            listing();
+        });
 
-                let temp_html = ``
-                if (done == 0) {
-                    temp_html = `<li>
-                                    <h2>✅ ${bucket}</h2>
-                                    <button onclick="done_bucket(${num})" type="button" class="btn btn-outline-primary">완료!</button>
-                                </li>`
-                } else {
-                    temp_html = `<li>
-                                    <h2 class="done">✅ ${bucket}</h2>
-                                </li>`
+        function listing() {
+            $.ajax({
+                type: 'GET',
+                url: '/rank',
+                data: {},
+                success: function (response) {
+                    let rows = response["movieRank"]
+                    for(let i = 0; i < rows.length; i++){
+                        let title = rows[i]["title"]
+                        let img = rows[i]["img"]
+                        let release = rows[i]["release"]
+                        let r_rate = rows[i]["r_rate"]
+
+                        let temp_html = `<div class="col">
+                                            <div class="card h-100">
+                                                <img src="${img}"
+                                                     class="card-img-top" >
+                                                <div class="card-body">
+                                                    <h5 class="card-title">"${title}"</h5>
+                                                    <p class="card-text">"${release}"</p>
+                                                    <p class="mycomment">"${r_rate}"</p>
+                                                </div>
+                                            </div>
+                                        </div>`
+
+                        $('#cards-box').append(temp_html)
+                    }
                 }
-                $('#bucket-list').append(temp_html)
-            }
+            })
         }
-    });
-}
-function save_bucket(){
-    let bucket = $('#bucket').val()
 
-    $.ajax({
-        type: "POST",
-        url: "/bucket",
-        data: {bucket_give: bucket},
-        success: function (response) {
-            alert(response["msg"])
-            window.location.reload()
+        function posting() {
+            $.ajax({
+                type: 'POST',
+                url: '/',
+                data: { },
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            });
         }
-    });
-}
-function done_bucket(num){
-    $.ajax({
-        type: "POST",
-        url: "/bucket/done",
-        data: {num_give: num},
-        success: function (response) {
-            alert(response["msg"])
-            window.location.reload()
-        }
-    });
-}
