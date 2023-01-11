@@ -37,7 +37,7 @@
     <div class="review">
         <div class="mypost">
 
-            <select class="form-select mb-3" aria-label="Default select example">
+            <select id="selectbox" class="form-select mb-3" aria-label="Default select example">
                 <option selected>영화 선택</option>
                 {% for i in movie_name %}
                 <option value="{{loop.index}}">{{i}}</option>
@@ -48,10 +48,10 @@
                 <option value="3">영화3</option>     -->
               </select>
 
-            <div class="form-floating mb-3">
+            <!-- <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="name" placeholder="url">
                 <label for="floatingInput">영화제목</label>
-            </div>
+            </div> -->
             <div class="input-group mb-3">
                 <label class="input-group-text" for="inputGroupSelect01">별점</label>
                 <select class="form-select" id="star">
