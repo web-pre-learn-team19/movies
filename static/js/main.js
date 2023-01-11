@@ -30,8 +30,8 @@ function show_rank(){
                                             </div>
                                         </div>
                                     </div>`
-                }
                 $('#rank_card').append(temp_html)
             }
+        }
     });
 }

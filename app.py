@@ -25,7 +25,7 @@ for ranking in rankings:
         title = a.text
         img_url = ranking.select_one('div > a > img')['src']
         open_date = ranking.select_one('dl > dd:nth-child(3) > dl > dd').text.replace("\n", "").replace("\r", "").replace("\t", "").replace("|","")
-        
+
         doc = {
             'title': title,
             'img_url': img_url,
