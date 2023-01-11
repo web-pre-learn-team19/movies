@@ -5,6 +5,9 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.g596pjc.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
+client2 = MongoClient('mongodb+srv://lee:sparta@Cluster0.nw7w0pd.mongodb.net/?retryWrites=true&w=majority')
+db2 = client2.dbsparta
+
 # 랭킹
 @app.route('/')
 def home():
@@ -13,7 +16,14 @@ def home():
 # 리뷰
 @app.route('/review')
 def review():
-    return render_template('review.html')
+    list(db.movieList.find({}, {'_id': False}))
+    movie_list = list(db2.movieprac.find({}, {'_id': False}))
+    # print(movie_list)
+    movie_name = [i['name'] for i in movie_list]
+    movie_num = [i['num'] for i in movie_list]
+
+    
+    return render_template('review.html', movie_name=movie_name, movie_num=movie_num)
 
 # 체크리스트
 @app.route('/list')
@@ -59,6 +69,27 @@ def list_delete():
 def list_get():
     watch_list = list(db.movieList.find({}, {'_id': False}))
     return jsonify({'watchLists': watch_list})
+
+@app.route("/review/posting", methods=["POST"])
+def review_post():
+    name_receive = request.form['name_give']
+    star_receive = request.form['star_give']
+    comment_receive = request.form['comment_give']
+
+    doc = {
+        'name': name_receive,
+        'star': star_receive,
+        'comment': comment_receive
+    }
+    db2.movieReview.insert_one(doc)
+    return jsonify({'msg': '등록 완료!'})
+
+@app.route("/review/posting", methods=["GET"])
+def review_get():
+    review_list = list(db2.movieReview.find({}, {'_id': False}))
+    return jsonify({'reviews': review_list})
+
+
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)
