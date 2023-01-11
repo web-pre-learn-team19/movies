@@ -11,29 +11,29 @@ db = client.dbsparta
 import requests
 from bs4 import BeautifulSoup
 
-@app.route("/rank", methods=["POST"])
-def rank_post():
-    headers = {
+headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-    data = requests.get('https://movie.naver.com/movie/running/current.naver', headers=headers)
+data = requests.get('https://movie.naver.com/movie/running/current.naver', headers=headers)
 
-    soup = BeautifulSoup(data.text, 'html.parser')
+soup = BeautifulSoup(data.text, 'html.parser')
 
-    rankings = soup.select('#content > div.article > div > div.lst_wrap > ul > li')
+rankings = soup.select('#content > div.article > div > div.lst_wrap > ul > li')
 
-    for ranking in rankings:
-        a = ranking.select_one('dl > dt > a')
-        if a != None:
-            title = a.text
-            img_url = ranking.select_one('div > a > img')['src']
-            open_date = ranking.select_one('dl > dd:nth-child(3) > dl > dd').text.replace("\n","").replace("\r","").replace("\t","").split('|')
-            print(title, img_url, open_date)
-            doc = {
-                'title':title,
-                'img_url':img_url,
-                'open_date':open_date
-            }
-            db.rank.insert_one(doc)
+for ranking in rankings:
+    a = ranking.select_one('dl > dt > a')
+    if a != None:
+        title = a.text
+        img_url = ranking.select_one('div > a > img')['src']
+        open_date = ranking.select_one('dl > dd:nth-child(3) > dl > dd').text.replace("\n", "").replace("\r", "").replace("\t", "").replace("|","")
+        
+        doc = {
+            'title': title,
+            'img_url': img_url,
+            'open_date': open_date
+        }
+        db.rank.insert_one(doc)
+
+
 @app.route("/rank", methods=["GET"])
 def rank_get():
     rank_list = list(db.rank.find({}, {'_id': False}))
