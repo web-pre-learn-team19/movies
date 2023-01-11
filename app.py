@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
+import requests
+from bs4 import BeautifulSoup
+
 from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.g596pjc.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
@@ -59,6 +62,18 @@ def list_delete():
 def list_get():
     watch_list = list(db.movieList.find({}, {'_id': False}))
     return jsonify({'watchLists': watch_list})
+
+
+
+# 랭킹 크롤링
+
+@app.route("/rank", methods=["GET"])
+def movie_get():
+    movie_ranking = list(db.movieRank.find({}, {'_id': False}))
+
+    return jsonify({'movieRank': movie_ranking})
+
+
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)
