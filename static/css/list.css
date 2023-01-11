@@ -78,8 +78,13 @@
     font-style: italic;
     font-weight: bold;
     background-color: #FFFF96;
+    text-decoration: line-through;
 }
 .mybox > li > button {
     border: none;
     background-color: transparent;
+}
+
+.checkedBox{
+    accent-color: black;
 }
