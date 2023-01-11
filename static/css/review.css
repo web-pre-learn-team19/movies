@@ -5,7 +5,7 @@
 .mypost {
     width: 95%;
     max-width: 500px;
-    margin: 20px auto 20px auto;
+    margin: 20px auto 30px auto;
 
     box-shadow: 0px 0px 3px 0px black;
     padding: 20px;
@@ -24,4 +24,19 @@
 .mycards > .card {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.titleinpost {
+    font-size: x-large;
+}
+
+.starinpost {
+    font-size: large;
+}
+
+.reviewinpost {
+    font-size: medium;
+    color: #787878;
+
+    margin-top: 10px;
 }
