@@ -11,6 +11,7 @@ function show_all_review() {
         success: function (response) {
             let rows = response['reviewList']
             for (let i = 0; i < rows.length; i++) {
+                let num = rows[i]['num']
                 let title = rows[i]['title']
                 let star = rows[i]['star']
                 let comment = rows[i]['comment']
@@ -23,6 +24,10 @@ function show_all_review() {
                                             <div class="titleinpost">${title}</div>
                                             <div class="starinpost">${star_image}</div>
                                             <div class="reviewinpost">${comment}</div>
+                                            <div class="btnarea">
+                                                <button onclick="modify_review(${num})" type="button" class="btn btn-outline-primary">수정</button>
+                                                <button onclick="delete_review(${num})" type="button" class="btn btn-outline-secondary">삭제</button>
+                                            </div>
                                         </blockquote>
                                     </div>
                                 </div>`
