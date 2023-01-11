@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
+import requests
+from bs4 import BeautifulSoup
+
 from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.g596pjc.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
@@ -70,6 +73,7 @@ def list_get():
     watch_list = list(db.movieList.find({}, {'_id': False}))
     return jsonify({'watchLists': watch_list})
 
+
 @app.route("/review/posting", methods=["POST"])
 def review_post():
     name_receive = request.form['name_give']
@@ -106,6 +110,17 @@ def review_modify():
     print(comment_receive)
     db2.movieReview.update_one({'num': int(num_receive)}, {'$set': {'comment': comment_receive}})
     return jsonify({'msg': '수정 완료!'})
+
+
+
+
+# 랭킹 크롤링
+
+@app.route("/rank", methods=["GET"])
+def movie_get():
+    movie_ranking = list(db.movieRank.find({}, {'_id': False}))
+
+    return jsonify({'movieRank': movie_ranking})
 
 
 

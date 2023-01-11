@@ -73,7 +73,7 @@ function show_checked_list(){
                 let temp_html = ``
                 if (done == 1) {
                     temp_html = `<li>
-                                    <h2 class="done"><input type="checkbox" onclick="cancel_list(${num})" checked/> ${movie}</h2>
+                                    <h2 class="done"><input class="checkedBox" type="checkbox" onclick="cancel_list(${num})" checked/> ${movie}</h2>
                                     <button type="button" onclick="delete_list(${num})"><span class="material-icons">delete</span></button>
                                 </li>`
                 }
