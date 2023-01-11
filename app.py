@@ -15,6 +15,52 @@ def home():
 def review():
     return render_template('review.html')
 
+@app.route("/reviews", methods=["POST"])
+def review_post():
+    title_receive = request.form['title_give']
+    star_receive = request.form['star_give']
+    comment_receive = request.form['comment_give']
+
+    if len(list(db.reviews.find({}, {'_id': False}))) == 0:
+        idnum = 1
+    else:
+        idnum = db.reviews.find_one(sort=[("num", -1)])["num"] + 1
+
+    doc = {
+        'num': idnum,
+        'title': title_receive,
+        'star': star_receive,
+        'comment': comment_receive
+    }
+
+    db.reviews.insert_one(doc)
+
+    return jsonify({'msg': '등록 완료!'})
+
+@app.route("/reviews", methods=["GET"])
+def review_get():
+    review_list = list(db.reviews.find({}, {'_id': False}))
+    return jsonify({'reviewList': review_list})
+
+@app.route("/reviews/delete", methods=["POST"])
+def review_delete():
+    num_receive = request.form['num_give']
+    db.reviews.delete_one({'num': int(num_receive)})
+    return jsonify({'msg': '삭제 완료!'})
+
+@app.route("/reviews/modify", methods=["POST"])
+def review_modify():
+    num_receive = request.form['num_give']
+    #
+    # db.movieList.update_one({'num': int(num_receive)}, {'$set': {'done': 0}})
+    # return jsonify({'msg': '수정 완료!'})
+
+    # 영화 제목 가져오기
+@app.route("/movietitle", methods=["GET"])
+def title_get():
+    title_list = list(db.movietest.find({}, {'_id': False})) # movietest에 실제 컬렉션 넣으면 됨
+    return jsonify({'titleList': title_list})
+
 # 체크리스트
 @app.route('/list')
 def checklist():
@@ -53,7 +99,6 @@ def list_delete():
     num_receive = request.form['num_give']
     db.movieList.delete_one({'num': int(num_receive)})
     return jsonify({'msg': '삭제 완료!'})
-
 
 @app.route("/watchlist", methods=["GET"])
 def list_get():

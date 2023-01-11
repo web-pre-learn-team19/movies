@@ -40,23 +40,17 @@
             <label class="input-group-text" for="title">영화 제목</label>
             <select class="form-select" id="title">
                 <option selected>-- 영화 제목을 선택하세요 --</option>
-                <!--                여기 옵션에 영화 이름 받아올 것. 페이지 처음에 뿌려줄 때 넣으면 될 듯-->
-                <!--              <option value="10평">10평</option>-->
-                <!--              <option value="20평">20평</option>-->
-                <!--              <option value="30평">30평</option>-->
-                <!--              <option value="40평">40평</option>-->
-                <!--              <option value="50평">50평</option>-->
             </select>
         </div>
         <div class="input-group mb-3">
             <label class="input-group-text" for="star">별점</label>
             <select class="form-select" id="star">
                 <option selected>-- 별점을 선택하세요 --</option>
-                <option value="1점">⭐️</option>
-                <option value="2점">⭐⭐</option>
-                <option value="3점">⭐⭐⭐</option>
-                <option value="4점">⭐⭐⭐⭐</option>
-                <option value="5점">⭐⭐⭐⭐⭐</option>
+                <option value="1">⭐️</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
             </select>
         </div>
         <div class="input-group mb-3">
@@ -64,7 +58,7 @@
             <textarea class="form-control" placeholder="리뷰를 남겨주세요" id="comment"
                       style="height: 100px"></textarea>
         </div>
-        <button onclick="save_order()" type="button" class="btn btn-warning mybtn">등록</button>
+        <button onclick="save_review()" type="button" class="btn btn-warning mybtn">등록</button>
     </div>
     <div class="mycards" id="comment-list">
         <div class="card">
