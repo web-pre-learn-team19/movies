@@ -1,14 +1,17 @@
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
+import certifi
+ca = certifi.where()
+
 
 import requests
 from bs4 import BeautifulSoup
 
 from pymongo import MongoClient
-client = MongoClient('mongodb+srv://test:sparta@cluster0.g596pjc.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('mongodb+srv://test:sparta@cluster0.g596pjc.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCaFile=ca)
 db = client.dbsparta
 
-client2 = MongoClient('mongodb+srv://lee:sparta@Cluster0.nw7w0pd.mongodb.net/?retryWrites=true&w=majority')
+client2 = MongoClient('mongodb+srv://lee:sparta@Cluster0.nw7w0pd.mongodb.net/?retryWrites=true&w=majority' ,tlsCaFile=ca)
 db2 = client2.dbsparta
 
 # 랭킹
