@@ -42,6 +42,12 @@ def review_get():
     review_list = list(db.reviews.find({}, {'_id': False}))
     return jsonify({'reviewList': review_list})
 
+@app.route("/reviews/delete", methods=["POST"])
+def review_delete():
+    num_receive = request.form['num_give']
+    db.reviews.delete_one({'num': int(num_receive)})
+    return jsonify({'msg': '삭제 완료!'})
+
 # 체크리스트
 @app.route('/list')
 def checklist():

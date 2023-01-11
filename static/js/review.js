@@ -52,3 +52,15 @@ function save_review() {
         }
     });
 }
+
+function delete_review(num){
+    $.ajax({
+        type: "POST",
+        url: "/reviews/delete",
+        data: {num_give: num},
+        success: function (response) {
+            alert(response["msg"])
+            window.location.reload()
+        }
+    });
+}
