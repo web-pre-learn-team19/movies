@@ -48,6 +48,18 @@ def review_delete():
     db.reviews.delete_one({'num': int(num_receive)})
     return jsonify({'msg': '삭제 완료!'})
 
+# @app.route("/review/cancel", methods=["POST"])
+# def review_cancel():
+#     num_receive = request.form['num_give']
+#     db.movieList.update_one({'num': int(num_receive)}, {'$set': {'done': 0}})
+#     return jsonify({'msg': '체크 해제 완료!'})
+
+    # 영화 제목 가져오기
+@app.route("/movietitle", methods=["GET"])
+def title_get():
+    title_list = list(db.movietest.find({}, {'_id': False})) # movietest에 실제 컬렉션 넣으면 됨
+    return jsonify({'titleList': title_list})
+
 # 체크리스트
 @app.route('/list')
 def checklist():

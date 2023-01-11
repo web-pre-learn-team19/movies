@@ -1,5 +1,6 @@
 $(document).ready(function () {
     show_all_review();
+    show_movie_title();
 });
 
 function show_all_review() {
@@ -32,6 +33,23 @@ function show_all_review() {
                                     </div>
                                 </div>`
                 $('#comment-list').append(temp_html)
+            }
+        }
+    });
+}
+
+function show_movie_title() {
+    $.ajax({
+        type: 'GET',
+        url: '/movietitle',
+        data: {},
+        success: function (response) {
+            let rows = response['titleList']
+            for (let i = 0; i < rows.length; i++) {
+                let title = rows[i]['title']
+                console.log(title)
+                let temp_html = `<option value="${title}">${title}</option>`
+                $('#title').append(temp_html)
             }
         }
     });
