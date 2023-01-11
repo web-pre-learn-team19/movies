@@ -82,3 +82,16 @@ function delete_review(num){
         }
     });
 }
+
+function modify_review(num){
+    // var new_review = prompt("수정할 내용을 입력해주세요.")
+    // $.ajax({
+    //     type: "POST",
+    //     url: "/reviews/modify",
+    //     data: {num_give: num},
+    //     success: function (response) {
+    //         alert(response["msg"])
+    //         window.location.reload()
+    //     }
+    // });
+}
