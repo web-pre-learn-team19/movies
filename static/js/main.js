@@ -24,6 +24,8 @@
                                                     <h5 class="card-title">"${title}"</h5>
                                                     <p class="card-text">"${release}"</p>
                                                     <p class="mycomment">"${r_rate}"</p>
+                                                    <button onclick='push_review("${title}")' type="button" class="btn btn-outline-dark" >기록하기</button>
+                                                   
                                                 </div>
                                             </div>
                                         </div>`
@@ -34,14 +36,13 @@
             })
         }
 
-        function posting() {
+        function push_review(title) {
+            console.log(title)
             $.ajax({
                 type: 'POST',
-                url: '/',
-                data: { },
+                url: '/rank/push_review',
+                data: {title_give : title},
                 success: function (response) {
-                    alert(response['msg'])
-                    window.location.reload()
                 }
             });
         }

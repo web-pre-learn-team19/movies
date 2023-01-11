@@ -115,6 +115,23 @@ def review_modify():
     return jsonify({'msg': '수정 완료!'})
 
 
+@app.route("/rank/push_review", methods=["POST"])
+def rank_push_review():
+    title_receive = request.form['title_give']
+    idnum = db.movieList.find_one(sort=[("num", -1)])["num"] + 1
+
+    doc = {
+        'title1':title_receive,
+        'num':idnum
+    }
+    db.PunshRank.insert_one(doc)
+
+    return render_template('review.html')
+
+
+
+
+
 
 
 # 랭킹 크롤링
