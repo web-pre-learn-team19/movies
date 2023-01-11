@@ -1,11 +1,12 @@
 $(document).ready(function () {
-    function resize(obj) {
-        obj.style.height = '1px';
-        obj.style.height = (12 + obj.scrollHeight) + 'px';
-    }
 
-    console.log('load!')
     listing();
+    $('#selectbox').change(function(){
+        let target = $(this).val()
+        show_select_review(target)
+        // alert()
+
+    })
 });
 
 function listing() {
@@ -113,4 +114,9 @@ function modify_confirm(num){
             window.location.reload()
         }
     });
+}
+
+
+function show_select_review(){
+
 }

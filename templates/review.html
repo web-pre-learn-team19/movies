@@ -38,9 +38,9 @@
         <div class="mypost">
 
             <select id="selectbox" class="form-select mb-3" aria-label="Default select example">
-                <option selected>영화 선택</option>
+                <option value="all" selected>영화 선택</option>
                 {% for i in movie_name %}
-                <option value="{{loop.index}}">{{i}}</option>
+                <option value="{{i}}">{{i}}</option>
                 {% endfor %}
 <!--                 
                 
