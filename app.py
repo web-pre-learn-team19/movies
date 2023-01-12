@@ -22,6 +22,8 @@ def review():
     movie_list = list(db.movieRank.find({}, {'_id': False}))
 
     movie_name = [i['title'] for i in movie_list]
+   
+    
 
 
     
@@ -134,6 +136,25 @@ def movie_get():
     movie_ranking = list(db.movieRank.find({}, {'_id': False}))
 
     return jsonify({'movieRank': movie_ranking})
+
+
+# @app.route('/rank/pushreview', methods=["POST"])
+# def review_pushReview():
+#     selected_title_receive = request.form['title_give']
+#     print(selected_title_receive)
+#     return render_template('review.html', a=selected_title_receive)
+
+@app.route('/rankk', methods=["GET"])
+def rank1():
+    name = request.args.get("title")
+    print(name)
+
+    selected_movie = db.movieRank.find_one({'r_rate': f'No.{name}'})["title"]
+    print(selected_movie)
+    movie_list = list(db.movieRank.find({}, {'_id': False}))
+
+    movie_name = [i['title'] for i in movie_list]
+    return render_template('review.html', selected_movie = selected_movie, movie_name = movie_name)
 
 
 

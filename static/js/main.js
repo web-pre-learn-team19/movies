@@ -15,6 +15,8 @@
                         let img = rows[i]["img"]
                         let release = rows[i]["release"]
                         let r_rate = rows[i]["r_rate"]
+                        let address = "rankk"
+                        let parameter =  r_rate.split(".")[1]
 
                         let temp_html = `<div class="col">
                                             <div class="rating">${r_rate}</div>
@@ -25,7 +27,7 @@
                                                     <h5 class="card-title">${title}</h5>
                                                     <p class="card-text">${release}</p>
                                                 </div>
-                                                <a href="/review" onclick="push_review('${title}')" class="reviewBtn">리뷰 확인</a>
+                                                <a href="${address}?title=${parameter}" class="reviewBtn">리뷰 확인</a>
                                             </div>
                                         </div>`
 
@@ -36,15 +38,14 @@
         }
 
         function push_review(title) {
+            console.log(title)
             $.ajax({
                 type: 'POST',
-                url: '/',
-                data: {},
-                url: '/rank/push_review',
+                url: '/rank/pushreview',
                 data: {title_give: title},
-                success: function (response) {
-                    alert(response['msg'])
-                    window.location.reload()
-                }
+                // success: function (response) {
+                //     alert(response['msg'])
+                //     window.location.reload()
+                // }
             });
         }

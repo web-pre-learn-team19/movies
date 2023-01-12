@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
 
     listing();
     $('#selectbox').change(function () {
@@ -6,42 +7,45 @@ $(document).ready(function () {
         show_select_review(target)
 
     })
+
 });
 
 function listing() {
-    $.ajax({
-        type: 'GET',
-        url: '/review/posting',
-        data: {},
-        success: function (response) {
-            let rows = response['reviews']
-            for (let i = 0; i < rows.length; i++) {
-                let name = rows[i]['name']
-                let comment = rows[i]['comment']
-                let star = rows[i]['star']
-                let num = rows[i]['num']
+    let sel_text = $("#selectbox option:selected").val();
+    show_select_review(sel_text)
+    // $.ajax({
+    //     type: 'GET',
+    //     url: '/review/posting',
+    //     data: {},
+    //     success: function (response) {
+    //         let rows = response['reviews']
+    //         for (let i = 0; i < rows.length; i++) {
+    //             let name = rows[i]['name']
+    //             let comment = rows[i]['comment']
+    //             let star = rows[i]['star']
+    //             let num = rows[i]['num']
 
-                let star_image = '⭐'.repeat(star)
+    //             let star_image = '⭐'.repeat(star)
 
-                let temp_html = `<div class="card">
-                                    <div class="card-body">
-                                        <blockquote class="blockquote mb-0">
-                                            <h5 class="card-title">${name}</h5>
-                                            <p>${star_image}</p>
-                                            <textarea class="autosize" id="txtfield${num}" disabled>${comment}</textarea>
-                                            <div class="btnarea">
-                                                <p><button type="button" id="btn-confirm${num}" class="btn btn-primary btnmodify" onclick="modify_confirm(${num})">confirm</button></p>
-                                                <span><button type="button" onclick="modify_review(${num})" class="btn btn-outline-primary" id="modifybtn${num}">modify</button></span>
-                                                <span><button type="button" onclick="delete_review(${num})" class="btn btn-outline-secondary" id="deletebtn${num}">delete</button></span>
-                                            </div>     
-                                        </blockquote>                                    
-                                    </div>   
-                                </div>`
-                $('#cards-box').append(temp_html)
-            }
-            $('.btnmodify').hide()
-        }
-    })
+    //             let temp_html = `<div class="card">
+    //                                 <div class="card-body">
+    //                                     <blockquote class="blockquote mb-0">
+    //                                         <h5 class="card-title">${name}</h5>
+    //                                         <p>${star_image}</p>
+    //                                         <textarea class="autosize" id="txtfield${num}" disabled>${comment}</textarea>
+    //                                         <div class="btnarea">
+    //                                             <p><button type="button" id="btn-confirm${num}" class="btn btn-primary btnmodify" onclick="modify_confirm(${num})">confirm</button></p>
+    //                                             <span><button type="button" onclick="modify_review(${num})" class="btn btn-outline-primary" id="modifybtn${num}">modify</button></span>
+    //                                             <span><button type="button" onclick="delete_review(${num})" class="btn btn-outline-secondary" id="deletebtn${num}">delete</button></span>
+    //                                         </div>     
+    //                                     </blockquote>                                    
+    //                                 </div>   
+    //                             </div>`
+    //             $('#cards-box').append(temp_html)
+    //         }
+    //         $('.btnmodify').hide()
+    //     }
+    // })
 }
 
 function posting() {
@@ -98,7 +102,39 @@ function modify_confirm(num) {
 
 function show_select_review(val) {
     if (val == 'all') {
-        window.location.reload()
+        $.ajax({
+            type: 'GET',
+            url: '/review/posting',
+            data: {},
+            success: function (response) {
+                let rows = response['reviews']
+                for (let i = 0; i < rows.length; i++) {
+                    let name = rows[i]['name']
+                    let comment = rows[i]['comment']
+                    let star = rows[i]['star']
+                    let num = rows[i]['num']
+
+                    let star_image = '⭐'.repeat(star)
+
+                    let temp_html = `<div class="card">
+                                    <div class="card-body">
+                                        <blockquote class="blockquote mb-0">
+                                            <h5 class="card-title">${name}</h5>
+                                            <p>${star_image}</p>
+                                            <textarea class="autosize" id="txtfield${num}" disabled>${comment}</textarea>
+                                            <div class="btnarea">
+                                                <p><button type="button" id="btn-confirm${num}" class="btn btn-primary btnmodify" onclick="modify_confirm(${num})">confirm</button></p>
+                                                <span><button type="button" onclick="modify_review(${num})" class="btn btn-outline-primary" id="modifybtn${num}">modify</button></span>
+                                                <span><button type="button" onclick="delete_review(${num})" class="btn btn-outline-secondary" id="deletebtn${num}">delete</button></span>
+                                            </div>     
+                                        </blockquote>                                    
+                                    </div>   
+                                </div>`
+                    $('#cards-box').append(temp_html)
+                }
+                $('.btnmodify').hide()
+            }
+        })
     } else {
         $.ajax({
             type: "POST",
