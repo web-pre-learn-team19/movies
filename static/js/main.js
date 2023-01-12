@@ -24,6 +24,7 @@
                                                     <h5 class="card-title">"${title}"</h5>
                                                     <p class="card-text">"${release}"</p>
                                                     <p class="mycomment">"${r_rate}"</p>
+                                                    <button onclick='posting("${title}")' >리뷰</button>
                                                 </div>
                                             </div>
                                         </div>`
@@ -34,14 +35,12 @@
             })
         }
 
-        function posting() {
+        function posting(title) {
             $.ajax({
                 type: 'POST',
-                url: '/',
-                data: { },
+                url: '/Push_review',
+                data: {title_give:title},
                 success: function (response) {
-                    alert(response['msg'])
-                    window.location.reload()
                 }
             });
         }
