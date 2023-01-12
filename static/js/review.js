@@ -117,6 +117,10 @@ function modify_confirm(num){
 }
 
 
-function show_select_review(){
-
+function show_select_review(val){
+    if (val =='all'){
+        window.location.reload()
+    }else{
+        
+    }
 }
