@@ -113,7 +113,6 @@ def review_modify():
 
 
 
-
 # 랭킹 크롤링
 
 @app.route("/rank", methods=["GET"])
@@ -123,6 +122,18 @@ def movie_get():
     return jsonify({'movieRank': movie_ranking})
 
 
+@app.route("/rank/push_review", methods=["POST"])
+def rank_push_review():
+    title_receive = request.form['title_give']
+    idnum = db.movieList.find_one(sort=[("num", -1)])["num"] + 1
+
+    doc = {
+        'title1':title_receive,
+        'num':idnum
+    }
+    db.PunshRank.insert_one(doc)
+
+    return render_template('review.html')
 
 
 if __name__ == '__main__':

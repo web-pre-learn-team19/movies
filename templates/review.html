@@ -27,9 +27,11 @@
             <h1>Movie Storage</h1>
         </div>
         <div class="mymenu">
-            <a href="/">RANKING</a>
-            <a href="/review">REVIEW</a>
-            <a href="/list">LIST</a>
+        <ul>
+            <li><a href="/">RANKING</a></li>
+            <li><a href="/review">REVIEW</a></li>
+            <li><a href="/list">LIST</a></li>
+        </ul>
         </div>
     </div>
 
@@ -38,15 +40,12 @@
         <div class="mypost">
 
             <select id="selectbox" class="form-select mb-3" aria-label="Default select example">
-                <option selected>영화 선택</option>
-                {% for i in movie_name %}
-                <option value="{{loop.index}}">{{i}}</option>
+                <option value="all" selected>영화 선택</option>
+                {% for title in movie_name %}
+                <option value="{{i}}">{{i}}</option>
                 {% endfor %}
-<!--                 
-                
-                <option value="2">영화2</option>
-                <option value="3">영화3</option>     -->
-              </select>
+
+            </select>
 
             <!-- <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="name" placeholder="url">

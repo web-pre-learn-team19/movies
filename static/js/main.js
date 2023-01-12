@@ -17,14 +17,16 @@
                         let r_rate = rows[i]["r_rate"]
 
                         let temp_html = `<div class="col">
-                                            <div class="card h-100">
+                                            <div class="card h-80 cardBox">
                                                 <img src="${img}"
-                                                     class="card-img-top" >
+                                                     class="card-img-top cardImg" >
                                                 <div class="card-body">
-                                                    <h5 class="card-title">"${title}"</h5>
-                                                    <p class="card-text">"${release}"</p>
-                                                    <p class="mycomment">"${r_rate}"</p>
+                                                    <h5 class="card-title">${title}</h5>
+                                                    <p class="card-text">${release}</p>
+                                                    <p class="rating">${r_rate}</p>
+                  
                                                 </div>
+                                                <a href="/review" onclick="push_review('${title}')" class="reviewBtn">리뷰 확인</a>
                                             </div>
                                         </div>`
 
@@ -34,11 +36,13 @@
             })
         }
 
-        function posting() {
+        function push_review(title) {
             $.ajax({
                 type: 'POST',
                 url: '/',
-                data: { },
+                data: {},
+                url: '/rank/push_review',
+                data: {title_give: title},
                 success: function (response) {
                     alert(response['msg'])
                     window.location.reload()
