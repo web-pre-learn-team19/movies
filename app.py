@@ -36,6 +36,10 @@ def review():
 def checklist():
     return render_template('list.html')
 
+@app.route('/review_rank')
+def push_review1():
+    return render_template('review_rank.html')
+
 @app.route("/watchlist", methods=["POST"])
 def list_post():
     movie_receive = request.form['movie_give']
@@ -129,9 +133,15 @@ def review_postingByTitle():
     return jsonify({'reviews': review_list})
 
 
+# @app.route("/rank/push_review" ,methods=["GET"])
+# def push_review():
+#     title1_receive = request.form['title1_give']
+#     # print(title1_receive)
+#
+#     return render_template('review_rank.html', movie_name1=title1_receive)
 
 
-# 랭킹 크롤링
+
 
 @app.route("/rank", methods=["GET"])
 def movie_get():
