@@ -18,12 +18,12 @@ function show_all_list(){
                 let temp_html = ``
                 if (done == 0) {
                     temp_html = `<li>
-                                    <h2><input type="checkbox" onclick="done_list(${num})"/> ${movie}</h2>
+                                    <h2><input type="checkbox" class="uncheckedBox" onclick="done_list(${num})"/> ${movie}</h2>
                                     <button type="button" onclick="delete_list(${num})"><span class="material-icons">delete</span></button>
                                 </li>`
                 } else {
                     temp_html = `<li>
-                                    <h2 class="done"><input type="checkbox" onclick="cancel_list(${num})" checked/> ${movie}</h2>
+                                    <h2 class="done"><input  class="checkedBox" type="checkbox" onclick="cancel_list(${num})" checked/> ${movie}</h2>
                                     <button type="button" onclick="delete_list(${num})"><span class="material-icons">delete</span></button>
                                 </li>`
                 }
@@ -48,7 +48,7 @@ function show_unchecked_list(){
                 let temp_html = ``
                 if (done == 0) {
                     temp_html = `<li>
-                                    <h2><input type="checkbox" onclick="done_list(${num})"/> ${movie}</h2>
+                                    <h2><input type="checkbox" class="uncheckedBox" onclick="done_list(${num})"/> ${movie}</h2>
                                     <button type="button" onclick="delete_list(${num})"><span class="material-icons">delete</span></button>
                                 </li>`
                 }
