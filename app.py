@@ -32,7 +32,7 @@ def checklist():
 def list_post():
     movie_receive = request.form['movie_give']
     try:
-        idnum = db.movieReview.find_one(sort=[("num", -1)])["num"] + 1
+        idnum = db.movieList.find_one(sort=[("num", -1)])["num"] + 1
     except:
         idnum = 1
 
