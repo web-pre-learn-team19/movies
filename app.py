@@ -20,13 +20,7 @@ def home():
 def review():
 
     movie_list = list(db.movieRank.find({}, {'_id': False}))
-
     movie_name = [i['title'] for i in movie_list]
-   
-    
-
-
-    
     return render_template('review.html', movie_name=movie_name)
 
 # 체크리스트
@@ -37,8 +31,10 @@ def checklist():
 @app.route("/watchlist", methods=["POST"])
 def list_post():
     movie_receive = request.form['movie_give']
-
-    idnum = db.movieList.find_one(sort=[("num", -1)])["num"] + 1
+    try:
+        idnum = db.movieReview.find_one(sort=[("num", -1)])["num"] + 1
+    except:
+        idnum = 1
 
     doc = {
         'num': idnum,
@@ -120,10 +116,8 @@ def review_modify():
 @app.route("/review/postingByTitle", methods=["POST"])
 def review_postingByTitle():
     title_receive = request.form['title_give']
-    # print(title_receive)
 
     review_list = list(db.movieReview.find({'name':title_receive}, {'_id': False}))
-    # print(review_list)
     return jsonify({'reviews': review_list})
 
 
@@ -134,17 +128,9 @@ def review_postingByTitle():
 @app.route("/rank", methods=["GET"])
 def movie_get():
     movie_ranking = list(db.movieRank.find({}, {'_id': False}))
-
     return jsonify({'movieRank': movie_ranking})
 
-
-# @app.route('/rank/pushreview', methods=["POST"])
-# def review_pushReview():
-#     selected_title_receive = request.form['title_give']
-#     print(selected_title_receive)
-#     return render_template('review.html', a=selected_title_receive)
-
-@app.route('/rankk', methods=["GET"])
+@app.route('/rankselect', methods=["GET"])
 def rank1():
     name = request.args.get("title")
     print(name)
