@@ -78,6 +78,17 @@ def review_postingByTitle():
     # print(review_list)
     return jsonify({'reviews': review_list})
 
+# rank에서 리뷰확인 선택시 리뷰 페이지로 넘어가는 기능
+@app.route('/rank/pushreview', methods=["POST"])
+def review_pushReview():
+    selected_title_receive = request.form['title_give']
+    print(selected_title_receive)
+
+    # return render_template('review.html', movie_name=selected_title_receive)
+    # return jsonify({'msg' : selected_title_receive})
+    return render_template('review.html', a=selected_title_receive)
+
+
 # 체크리스트
 @app.route('/list')
 def checklist():
@@ -126,6 +137,29 @@ def list_get():
     watch_list = list(db.movieList.find({}, {'_id': False}))
     return jsonify({'watchLists': watch_list})
 
+@app.route('/rank/1')
+def rank1():
+    selected_movie = db.movieRank.find_one({'r_rate': 'No.1'})["title"]
+    print(selected_movie)
+    return render_template('review.html', selected_movie = selected_movie)
+
+@app.route('/rank/2')
+def rank2():
+    selected_movie = db.movieRank.find_one({'r_rate': 'No.2'})["title"]
+    print(selected_movie)
+    return render_template('review.html', selected_movie = selected_movie)
+
+@app.route('/rank/3')
+def rank3():
+    selected_movie = db.movieRank.find_one({'r_rate': 'No.3'})["title"]
+    print(selected_movie)
+    return render_template('review.html', selected_movie = selected_movie)
+
+@app.route('/rank/4')
+def rank4():
+    selected_movie = db.movieRank.find_one({'r_rate': 'No.4'})["title"]
+    print(selected_movie)
+    return render_template('review.html', selected_movie = selected_movie)
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)

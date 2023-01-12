@@ -41,9 +41,13 @@
                 <label class="input-group-text" for="selectbox">영화 제목</label>
                 <select id="selectbox" class="form-select">
                     <option selected value="all">-- 영화 제목을 선택하세요 --</option>
-                    {% for i in movie_name %}
-                    <option value="{{i}}">{{i}}</option>
-                    {% endfor %}
+                        {% if selected_movie == null %}
+                            {% for i in movie_name %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="{{selected_movie}}">{{selected_movie}}</option>
+                        {% endif %}
                 </select>
             </div>
             <div class="input-group mb-3">
