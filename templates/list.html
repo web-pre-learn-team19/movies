@@ -28,11 +28,13 @@
         <h1>Movie Storage</h1>
     </div>
     <div class="mymenu">
-        <a href="/">RANKING</a>
-        <a href="/review">REVIEW</a>
-        <a href="/list">LIST</a>
+        <ul>
+            <li><a href="/">RANKING</a></li>
+            <li><a href="/review">REVIEW</a></li>
+            <li><a href="/list">LIST</a></li>
+        </ul>
     </div>
-    <div class="mybox">
+    <div class="mybox1">
         <div class="mylist">
             <input id="mymovie" class="form-control" type="text" placeholder="보고싶은 영화를 입력하세요">
             <button onclick="save_list()" type="button" class="btn btn-outline-primary">저장</button>
@@ -44,8 +46,8 @@
             <button class="towatchbtn" onclick="show_unchecked_list()">To Watch</button>
             <button class="watchedbtn" onclick="show_checked_list()">Watched</button>
         </div>
-    </div>
     <div class="mybox" id="movie-list">
     </div>
+        </div>
 </body>
 </html>

@@ -12,8 +12,7 @@ client = MongoClient('mongodb+srv://test:sparta@cluster0.g596pjc.mongodb.net/Clu
 
 db = client.dbsparta
 
-# client2 = MongoClient('mongodb+srv://lee:sparta@Cluster0.nw7w0pd.mongodb.net/?retryWrites=true&w=majority')
-# db2 = client2.dbsparta
+
 
 # 랭킹
 @app.route('/')
@@ -23,11 +22,11 @@ def home():
 # 리뷰
 @app.route('/review')
 def review():
-    # list(db.movieList.find({}, {'_id': False}))
+
     movie_list = list(db.movieRank.find({}, {'_id': False}))
-    # print(movie_list)
+
     movie_name = [i['title'] for i in movie_list]
-    # movie_num = [i['num'] for i in movie_list]
+
 
     
     return render_template('review.html', movie_name=movie_name)
@@ -118,6 +117,16 @@ def review_modify():
     print(comment_receive)
     db.movieReview.update_one({'num': int(num_receive)}, {'$set': {'comment': comment_receive}})
     return jsonify({'msg': '수정 완료!'})
+
+
+@app.route("/review/postingByTitle", methods=["POST"])
+def review_postingByTitle():
+    title_receive = request.form['title_give']
+    # print(title_receive)
+
+    review_list = list(db.movieReview.find({'name':title_receive}, {'_id': False}))
+    # print(review_list)
+    return jsonify({'reviews': review_list})
 
 
 
