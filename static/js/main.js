@@ -1,24 +1,24 @@
 
-        $(document).ready(function () {
-            listing();
-        });
+$(document).ready(function () {
+    listing();
+});
 
-        function listing() {
-            $.ajax({
-                type: 'GET',
-                url: '/rank',
-                data: {},
-                success: function (response) {
-                    let rows = response["movieRank"]
-                    for(let i = 0; i < rows.length; i++){
-                        let title = rows[i]["title"]
-                        let img = rows[i]["img"]
-                        let release = rows[i]["release"]
-                        let r_rate = rows[i]["r_rate"]
-                        let address = "rankk"
-                        let parameter =  r_rate.split(".")[1]
+function listing() {
+    $.ajax({
+        type: 'GET',
+        url: '/rank',
+        data: {},
+        success: function (response) {
+            let rows = response["movieRank"]
+            for (let i = 0; i < rows.length; i++) {
+                let title = rows[i]["title"]
+                let img = rows[i]["img"]
+                let release = rows[i]["release"]
+                let r_rate = rows[i]["r_rate"]
+                let address = "rankselect"
+                let parameter = r_rate.split(".")[1]
 
-                        let temp_html = `<div class="col">
+                let temp_html = `<div class="col">
                                             <div class="rating">${r_rate}</div>
                                             <div class="card h-60 cardBox">
                                                 <img src="${img}"
@@ -31,21 +31,8 @@
                                             </div>
                                         </div>`
 
-                        $('#cards-box').append(temp_html)
-                    }
-                }
-            })
+                $('#cards-box').append(temp_html)
+            }
         }
-
-        function push_review(title) {
-            console.log(title)
-            $.ajax({
-                type: 'POST',
-                url: '/rank/pushreview',
-                data: {title_give: title},
-                // success: function (response) {
-                //     alert(response['msg'])
-                //     window.location.reload()
-                // }
-            });
-        }
+    })
+}
