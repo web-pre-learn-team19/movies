@@ -36,6 +36,7 @@
         }
 
         function push_review(title) {
+            
             $.ajax({
                 type: 'POST',
                 url: '/',
